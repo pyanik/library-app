@@ -1,4 +1,4 @@
-package com.app.library.model;
+package com.app.library.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -30,6 +30,6 @@ class BookEntity {
     @JoinColumn(name = "book_category_id", nullable = false)
     private BookCategoryEntity bookCategory;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<BorrowEntity> borrows;
 }

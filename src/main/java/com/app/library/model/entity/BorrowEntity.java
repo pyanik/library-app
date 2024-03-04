@@ -1,20 +1,26 @@
-package com.app.library.model;
+package com.app.library.model.entity;
 
-import com.app.library.constant.BorrowStatus;
+import com.app.library.model.enums.BorrowStatus;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
+
 @Entity
-@Table(name = "borrow")
-@Data
+@Table(name = "borrow", schema = DB_SCHEMA)
+@Getter
+@Setter
 class BorrowEntity {
 
     @Id
     @Column(name = "borrow_id", nullable = false)
-    private final String id = UUID.randomUUID().toString();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false)

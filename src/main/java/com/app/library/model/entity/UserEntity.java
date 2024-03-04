@@ -1,6 +1,6 @@
-package com.app.library.model;
+package com.app.library.model.entity;
 
-import com.app.library.constant.UserRole;
+import com.app.library.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
 

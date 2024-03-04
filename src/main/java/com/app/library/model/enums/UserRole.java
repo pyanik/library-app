@@ -1,4 +1,4 @@
-package com.app.library.constant;
+package com.app.library.model.enums;
 
 public enum UserRole {
     READER,
