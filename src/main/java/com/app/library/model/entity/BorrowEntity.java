@@ -30,10 +30,13 @@ class BorrowEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
+    @Column(name = "date_of_borrow")
     private LocalDateTime dateOfBorrow;
 
+    @Column(name = "date_of_return")
     private LocalDateTime dateOfReturn;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "borrow_status")
     private BorrowStatus borrowStatus;
 }

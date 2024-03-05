@@ -14,6 +14,7 @@ import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
 @Table(name = "author", schema = DB_SCHEMA)
 @Getter
 @Setter
+public
 class AuthorEntity {
 
     @Id
@@ -24,8 +25,10 @@ class AuthorEntity {
     @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "biography")
     private String biography;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
