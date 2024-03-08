@@ -27,6 +27,6 @@ class BookCategoryEntity {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "book_category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bookCategory", cascade = CascadeType.ALL)
     private Set<BookEntity> books = new HashSet<>();
 }

@@ -38,6 +38,6 @@ class BookEntity {
     @JoinColumn(name = "book_category_id", nullable = false)
     private BookCategoryEntity bookCategory;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private Set<BorrowEntity> borrows;
 }
