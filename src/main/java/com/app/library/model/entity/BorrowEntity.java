@@ -1,6 +1,6 @@
 package com.app.library.model.entity;
 
-import com.app.library.constant.BorrowStatus;
+import com.app.library.model.enums.BorrowStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,13 +29,13 @@ class BorrowEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @Column(name = "date_of_borrow")
+    @Column(name = "date_of_borrow", nullable = false)
     private LocalDateTime dateOfBorrow;
 
-    @Column(name = "date_of_return")
+    @Column(name = "date_of_return", nullable = false)
     private LocalDateTime dateOfReturn;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "borrow_status")
+    @Column(name = "borrow_status", nullable = false)
     private BorrowStatus borrowStatus;
 }

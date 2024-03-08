@@ -1,6 +1,6 @@
 package com.app.library.model.entity;
 
-import com.app.library.constant.UserRole;
+import com.app.library.model.enums.UserRole;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,20 +22,20 @@ class UserEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role")
+    @Column(name = "user_role", nullable = false)
     private UserRole userRole;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
