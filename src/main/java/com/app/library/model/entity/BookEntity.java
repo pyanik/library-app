@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Year;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
@@ -14,7 +15,7 @@ import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
 @Setter
 @Entity
 @Table(name = "book", schema = DB_SCHEMA)
-class BookEntity {
+public class BookEntity {
 
     @Id
     @Column(name = "book_id", nullable = false)
@@ -39,5 +40,5 @@ class BookEntity {
     private BookCategoryEntity bookCategory;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
-    private Set<BorrowEntity> borrows;
+    private List<BorrowEntity> borrows = new ArrayList<>();
 }

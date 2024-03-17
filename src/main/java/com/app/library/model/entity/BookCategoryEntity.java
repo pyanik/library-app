@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
@@ -14,7 +14,7 @@ import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
 @Setter
 @Entity
 @Table(name = "book_category", schema = DB_SCHEMA)
-class BookCategoryEntity {
+public class BookCategoryEntity {
 
     @Id
     @Column(name = "book_category_id", nullable = false)
@@ -28,5 +28,5 @@ class BookCategoryEntity {
     private String description;
 
     @OneToMany(mappedBy = "bookCategory", cascade = CascadeType.ALL)
-    private Set<BookEntity> books = new HashSet<>();
+    private List<BookEntity> books = new ArrayList<>();
 }

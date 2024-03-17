@@ -14,7 +14,7 @@ import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
 @Setter
 @Entity
 @Table(name = "borrow", schema = DB_SCHEMA)
-class BorrowEntity {
+public class BorrowEntity {
 
     @Id
     @Column(name = "borrow_id", nullable = false)
