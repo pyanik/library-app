@@ -8,12 +8,12 @@ import static com.app.library.TestConstants.*;
 public class AuthorMockFactory {
 
     public static AuthorDto getAuthorDto() {
-        return new AuthorDto(ID_1, AUTHOR_FIRST_NAME, AUTHOR_LAST_NAME, AUTHOR_BIOGRAPHY, BOOK_DTO_LIST);
+        return new AuthorDto(AUTHOR_ID, AUTHOR_FIRST_NAME, AUTHOR_LAST_NAME, AUTHOR_BIOGRAPHY, BOOK_DTO_LIST);
     }
 
     public static AuthorEntity getAuthor() {
         AuthorEntity authorEntity = new AuthorEntity();
-        authorEntity.setId(ID_1);
+        authorEntity.setId(AUTHOR_ID);
         authorEntity.setFirstName(AUTHOR_FIRST_NAME);
         authorEntity.setLastName(AUTHOR_LAST_NAME);
         authorEntity.setBiography(AUTHOR_BIOGRAPHY);

@@ -9,12 +9,12 @@ import static com.app.library.TestConstants.*;
 class UserMockFactory {
 
     public static UserDto getReaderUserDto() {
-        return new UserDto(ID_7, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL, USER_PASSWORD, UserRole.READER, BORROW_DTO_LIST);
+        return new UserDto(USER_ID, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL, USER_PASSWORD, UserRole.READER, BORROW_DTO_LIST);
     }
 
     public static UserEntity getReaderUser() {
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(ID_7);
+        userEntity.setId(USER_ID);
         userEntity.setFirstName(AUTHOR_FIRST_NAME);
         userEntity.setLastName(AUTHOR_LAST_NAME);
         userEntity.setEmail(USER_EMAIL);
