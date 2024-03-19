@@ -14,7 +14,7 @@ import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
 @Setter
 @Entity
 @Table(name = "author", schema = DB_SCHEMA)
-class AuthorEntity {
+public class AuthorEntity {
 
     @Id
     @Column(name = "author_id", nullable = false)

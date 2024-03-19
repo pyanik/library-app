@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
@@ -15,7 +16,7 @@ import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
 @Setter
 @Entity
 @Table(name = "user", schema = DB_SCHEMA)
-class UserEntity {
+public class UserEntity {
 
     @Id
     @Column(name = "user_id", nullable = false)
@@ -39,5 +40,5 @@ class UserEntity {
     private UserRole userRole;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<BorrowEntity> books;
+    private List<BorrowEntity> borrows = new ArrayList<>();
 }
