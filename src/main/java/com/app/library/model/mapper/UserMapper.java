@@ -1,6 +1,7 @@
 package com.app.library.model.mapper;
 
 import com.app.library.model.dto.UserDto;
+import com.app.library.model.dto.UserInfoDto;
 import com.app.library.model.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,4 +17,6 @@ public interface UserMapper {
     @Mapping(source = "firstName", target = "name")
     @Mapping(source = "lastName", target = "surname")
     UserDto toDto(UserEntity userEntity);
+
+    UserInfoDto toUserInfoDto(UserEntity userEntity);
 }

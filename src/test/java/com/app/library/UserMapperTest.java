@@ -7,17 +7,18 @@ import com.app.library.model.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mapstruct.factory.Mappers;
-import org.mockito.InjectMocks;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserMapperTest {
 
-    @InjectMocks
-    private static final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+    private UserMapper userMapper;
 
     @BeforeAll
-    public static void setUp() {
+    public void setUp() {
+        userMapper = Mappers.getMapper(UserMapper.class);
         BorrowMapper borrowMapper = Mappers.getMapper(BorrowMapper.class);
         ReflectionTestUtils.setField(userMapper, "borrowMapper", borrowMapper);
     }

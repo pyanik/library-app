@@ -9,19 +9,20 @@ import com.app.library.model.mapper.BorrowMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mapstruct.factory.Mappers;
-import org.mockito.InjectMocks;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookCategoryMapperTest {
 
-    @InjectMocks
-    private static final BookCategoryMapper bookCategoryMapper = Mappers.getMapper(BookCategoryMapper.class);
+    private BookCategoryMapper bookCategoryMapper;
 
     @BeforeAll
-    public static void setUp() {
+    public void setUp() {
+        bookCategoryMapper = Mappers.getMapper(BookCategoryMapper.class);
         BookMapper bookMapper = Mappers.getMapper(BookMapper.class);
         BorrowMapper borrowMapper = Mappers.getMapper(BorrowMapper.class);
         ReflectionTestUtils.setField(bookMapper, "borrowMapper", borrowMapper);

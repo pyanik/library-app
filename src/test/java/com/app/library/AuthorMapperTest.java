@@ -8,17 +8,18 @@ import com.app.library.model.mapper.BorrowMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mapstruct.factory.Mappers;
-import org.mockito.InjectMocks;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AuthorMapperTest {
 
-    @InjectMocks
-    private static final AuthorMapper authorMapper = Mappers.getMapper(AuthorMapper.class);
+    private AuthorMapper authorMapper;
 
     @BeforeAll
-    public static void setUp() {
+    public void setUp() {
+        authorMapper = Mappers.getMapper(AuthorMapper.class);
         BookMapper bookMapper = Mappers.getMapper(BookMapper.class);
         BorrowMapper borrowMapper = Mappers.getMapper(BorrowMapper.class);
         ReflectionTestUtils.setField(bookMapper, "borrowMapper", borrowMapper);
@@ -83,3 +84,4 @@ public class AuthorMapperTest {
         Assertions.assertEquals(author.getBooks().get(1).getBorrows().get(1).getBorrowStatus(), authorDto.books().get(1).borrows().get(1).borrowStatus());
     }
 }
+

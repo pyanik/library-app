@@ -39,8 +39,8 @@ public class TestConstants {
     public static final String USER_EMAIL = "User Email";
     public static final String USER_PASSWORD = "User Password";
     public static final List<BorrowDto> BORROW_DTO_LIST = new ArrayList<>() {{
-        add(new BorrowDto(BORROW_ID_1, DATE_OF_BORROW_1, DATE_OF_RETURN_1, BorrowStatus.RETURNED));
-        add(new BorrowDto(BORROW_ID_2, DATE_OF_BORROW_2, null, BorrowStatus.BORROWED));
+        add(new BorrowDto(BORROW_ID_1, BOOK_ID_1, DATE_OF_BORROW_1, DATE_OF_RETURN_1, BorrowStatus.RETURNED));
+        add(new BorrowDto(BORROW_ID_2, BOOK_ID_2, DATE_OF_BORROW_2, null, BorrowStatus.BORROWED));
     }};
     public static final List<BookDto> BOOK_DTO_LIST = new ArrayList<>() {{
         add(new BookDto(BOOK_ID_1, BOOK_TITLE_1, BOOK_DESCRIPTION_1, BOOK_YEAR_1, null));
