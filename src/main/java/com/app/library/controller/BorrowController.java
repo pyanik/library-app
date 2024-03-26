@@ -4,12 +4,11 @@ import com.app.library.model.dto.BorrowDto;
 import com.app.library.service.BorrowService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +24,7 @@ public class BorrowController {
     ResponseEntity<List<BorrowDto>> getAllBorrows() {
         List<BorrowDto> allBorrows = borrowService.getAllBorrows();
         if (!allBorrows.isEmpty()) {
-            return ResponseEntity.ok(allBorrows);
+            return new ResponseEntity<>(allBorrows, HttpStatus.OK);
         }
         return ResponseEntity.noContent().build();
     }
@@ -33,38 +32,34 @@ public class BorrowController {
     @GetMapping("/{id}")
     ResponseEntity<BorrowDto> getBorrowById(@PathVariable UUID id) {
         return borrowService.getBorrowById(id)
-                .map(ResponseEntity::ok)
+                .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     ResponseEntity<BorrowDto> saveBorrow(@Valid @RequestBody BorrowDto Borrow) {
         BorrowDto savedBorrow = borrowService.saveBorrow(Borrow);
-        URI savedBorrowUri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedBorrow.id())
-                .toUri();
-        return ResponseEntity.created(savedBorrowUri).body(savedBorrow);
+        return new ResponseEntity<>(savedBorrow, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     ResponseEntity<BorrowDto> replaceBorrow(@PathVariable UUID id, @Valid @RequestBody BorrowDto Borrow) {
         return borrowService.replaceBorrow(id, Borrow)
-                .map(ResponseEntity::ok)
+                .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteBorrow(@PathVariable UUID id) {
         borrowService.deleteBorrow(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("Book Borrow has been deleted.", HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/search")
     ResponseEntity<List<BorrowDto>> searchBorrows(@RequestParam(value = "userId") UUID id) {
         List<BorrowDto> searchedBorrows = borrowService.getBorrowsByUser(id);
         if (!searchedBorrows.isEmpty()) {
-            return ResponseEntity.ok(searchedBorrows);
+            return new ResponseEntity<>(searchedBorrows, HttpStatus.OK);
         }
         return ResponseEntity.noContent().build();
     }

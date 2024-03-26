@@ -5,12 +5,11 @@ import com.app.library.model.dto.BookSearchRequestDto;
 import com.app.library.service.BookService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +26,7 @@ public class BookController {
     ResponseEntity<List<BookDto>> getAllBooks() {
         List<BookDto> allBooks = bookService.getAllBooks();
         if (!allBooks.isEmpty()) {
-            return ResponseEntity.ok(allBooks);
+            return new ResponseEntity<>(allBooks, HttpStatus.OK);
         }
         return ResponseEntity.noContent().build();
     }
@@ -35,31 +34,27 @@ public class BookController {
     @GetMapping("/{id}")
     ResponseEntity<BookDto> getBookById(@PathVariable UUID id) {
         return bookService.getBookById(id)
-                .map(ResponseEntity::ok)
+                .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     ResponseEntity<BookDto> saveBook(@Valid @RequestBody BookDto book) {
         BookDto savedBook = bookService.saveBook(book);
-        URI savedBookUri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedBook.id())
-                .toUri();
-        return ResponseEntity.created(savedBookUri).body(savedBook);
+        return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     ResponseEntity<BookDto> replaceBook(@PathVariable UUID id, @Valid @RequestBody BookDto book) {
         return bookService.replaceBook(id, book)
-                .map(ResponseEntity::ok)
+                .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteBook(@PathVariable UUID id) {
         bookService.deleteBook(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("Book has been deleted.", HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/search")
@@ -77,7 +72,7 @@ public class BookController {
         }
 
         if (!searchedBooks.isEmpty()) {
-            return ResponseEntity.ok(searchedBooks);
+            return new ResponseEntity<>(searchedBooks, HttpStatus.OK);
         }
         return ResponseEntity.noContent().build();
     }
@@ -87,7 +82,7 @@ public class BookController {
         List<BookDto> searchedBooks = bookService.getBooksByCriteria(searchRequest);
 
         if (!searchedBooks.isEmpty()) {
-            return ResponseEntity.ok(searchedBooks);
+            return new ResponseEntity<>(searchedBooks, HttpStatus.OK);
         }
         return ResponseEntity.noContent().build();
     }
