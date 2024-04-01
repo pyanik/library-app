@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Year;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -32,4 +31,8 @@ public interface BookRepository extends JpaRepository<BookEntity, UUID> {
                               @Param("year") Year year,
                               @Param("authorId") UUID authorId,
                               @Param("bookCategoryId") UUID bookCategoryId);
+
+    @Override
+    @Query("SELECT DISTINCT b FROM BookEntity b JOIN FETCH b.borrows")
+    List<BookEntity> findAll();
 }

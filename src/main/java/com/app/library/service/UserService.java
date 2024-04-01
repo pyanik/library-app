@@ -9,6 +9,7 @@ import com.app.library.persistence.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final BorrowService borrowService;
 
     public List<UserInfoDto> getAllUsers() {
         return userRepository.findAll().stream()
@@ -59,5 +61,11 @@ public class UserService {
 
     public void deleteUser(UUID userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public void deleteUsers(List<UUID> userIds) {
+        userIds.forEach(borrowService::returnAllBookForUser);
+        userIds.forEach(this::deleteUser);
     }
 }

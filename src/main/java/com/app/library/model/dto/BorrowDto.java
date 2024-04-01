@@ -12,6 +12,9 @@ public record BorrowDto (
         @NotBlank(message = "Book id must not be blank.")
         UUID bookId,
 
+        @NotBlank(message = "User id must not be blank.")
+        UUID userId,
+
         LocalDateTime dateOfBorrow,
 
         LocalDateTime dateOfReturn,

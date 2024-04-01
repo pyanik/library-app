@@ -38,14 +38,14 @@ public class UserController {
     }
 
     @PostMapping
-    ResponseEntity<UserInfoDto> saveUser(@Valid @RequestBody UserDto User) {
-        UserInfoDto savedUser = userService.saveUser(User);
+    ResponseEntity<UserInfoDto> saveUser(@Valid @RequestBody UserDto user) {
+        UserInfoDto savedUser = userService.saveUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<UserInfoDto> replaceUser(@PathVariable UUID id, @Valid @RequestBody UserDto User) {
-        return userService.replaceUser(id, User)
+    ResponseEntity<UserInfoDto> replaceUser(@PathVariable UUID id, @Valid @RequestBody UserDto user) {
+        return userService.replaceUser(id, user)
                 .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -54,5 +54,11 @@ public class UserController {
     ResponseEntity<String> deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);
         return new ResponseEntity<>("User has been deleted.", HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping(consumes = "application/json")
+    ResponseEntity<String> deleteUsers(@RequestBody List<UUID> ids) {
+        userService.deleteUsers(ids);
+        return new ResponseEntity<>("Users have been deleted.", HttpStatus.NO_CONTENT);
     }
 }
