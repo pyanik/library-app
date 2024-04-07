@@ -1,6 +1,8 @@
 package com.app.library.service;
 
 import com.app.library.exception.BookAlreadyBorrowedException;
+import com.app.library.exception.BookNotFoundException;
+import com.app.library.exception.BorrowNotFoundException;
 import com.app.library.model.dto.BookDto;
 import com.app.library.model.dto.BorrowDto;
 import com.app.library.model.entity.BorrowEntity;
@@ -77,7 +79,7 @@ public class BorrowService {
 
     private void setReturnStatus(UUID borrowId) {
         BorrowEntity ReturnStatusBorrow = borrowRepository.findById(borrowId)
-                .orElseThrow();
+                .orElseThrow(() -> new BorrowNotFoundException(borrowId));
         ReturnStatusBorrow.setDateOfReturn(LocalDateTime.now());
         ReturnStatusBorrow.setBorrowStatus(BorrowStatus.RETURNED);
         borrowRepository.save(ReturnStatusBorrow);
@@ -98,7 +100,7 @@ public class BorrowService {
 
     boolean isBookAlreadyBorrowed(UUID bookId) {
         Optional<BookDto> bookById = bookService.getBookById(bookId);
-        List<BorrowDto> bookBorrows = bookById.orElseThrow().borrows();
+        List<BorrowDto> bookBorrows = bookById.orElseThrow(() -> new BookNotFoundException(bookId)).borrows();
         return bookBorrows.stream()
                 .anyMatch(b -> BorrowStatus.BORROWED.equals(b.borrowStatus()));
     }
