@@ -1,5 +1,6 @@
 package com.app.library.controller;
 
+import com.app.library.exception.BookAlreadyBorrowedException;
 import com.app.library.model.dto.BorrowDto;
 import com.app.library.service.BorrowService;
 import jakarta.validation.Valid;
@@ -37,14 +38,14 @@ public class BorrowController {
     }
 
     @PostMapping
-    ResponseEntity<BorrowDto> saveBorrow(@Valid @RequestBody BorrowDto Borrow) {
-        BorrowDto savedBorrow = borrowService.saveBorrow(Borrow);
-        return new ResponseEntity<>(savedBorrow, HttpStatus.CREATED);
+    ResponseEntity<List<BorrowDto>> saveBorrows(@Valid @RequestBody List<BorrowDto> borrows) throws BookAlreadyBorrowedException {
+        List<BorrowDto> borrowDtos = borrowService.saveBorrows(borrows);
+        return new ResponseEntity<>(borrowDtos, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<BorrowDto> replaceBorrow(@PathVariable UUID id, @Valid @RequestBody BorrowDto Borrow) {
-        return borrowService.replaceBorrow(id, Borrow)
+    ResponseEntity<BorrowDto> replaceBorrow(@PathVariable UUID id, @Valid @RequestBody BorrowDto borrow) {
+        return borrowService.replaceBorrow(id, borrow)
                 .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
     }
