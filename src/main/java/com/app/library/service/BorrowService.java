@@ -98,7 +98,7 @@ public class BorrowService {
         return borrowMapper.toDto(savedBorrow);
     }
 
-    boolean isBookAlreadyBorrowed(UUID bookId) {
+    private boolean isBookAlreadyBorrowed(UUID bookId) {
         Optional<BookDto> bookById = bookService.getBookById(bookId);
         List<BorrowDto> bookBorrows = bookById.orElseThrow(() -> new BookNotFoundException(bookId)).borrows();
         return bookBorrows.stream()

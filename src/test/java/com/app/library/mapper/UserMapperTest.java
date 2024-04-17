@@ -1,9 +1,10 @@
-package com.app.library;
+package com.app.library.mapper;
 
 import com.app.library.model.dto.UserDto;
 import com.app.library.model.entity.UserEntity;
 import com.app.library.model.mapper.BorrowMapper;
 import com.app.library.model.mapper.UserMapper;
+import com.app.library.util.UserMockFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

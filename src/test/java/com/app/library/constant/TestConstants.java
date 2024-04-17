@@ -1,4 +1,4 @@
-package com.app.library;
+package com.app.library.constant;
 
 import com.app.library.model.dto.BookDto;
 import com.app.library.model.dto.BorrowDto;
@@ -14,6 +14,7 @@ import java.util.UUID;
 public class TestConstants {
 
     public static final UUID AUTHOR_ID = UUID.fromString("0d2a680e-b530-40cc-8b62-fb4517289122");
+    public static final UUID AUTHOR_ID_2 = UUID.fromString("1d2a680e-8b62-b530-40cc-fb4517289122");
     public static final UUID BORROW_ID_1 = UUID.fromString("c8c529a0-2d72-468a-96a3-a71c2d4e0f7d");
     public static final UUID BORROW_ID_2 = UUID.fromString("11a823f8-561d-4760-92aa-6d4cacd0e4ae");
     public static final UUID BOOK_ID_1 = UUID.fromString("bc540af1-1f11-48d3-87ec-f906618e3624");
@@ -23,6 +24,7 @@ public class TestConstants {
     public static final String AUTHOR_FIRST_NAME = "Author First Name";
     public static final String AUTHOR_LAST_NAME = "Author Last Name";
     public static final String AUTHOR_BIOGRAPHY = "Author Biography";
+    public static final String AUTHOR_NAME = "Author Name";
     public static final LocalDateTime DATE_OF_BORROW_1 = LocalDateTime.of(2024, Month.MARCH, 8, 16, 19, 22);
     public static final LocalDateTime DATE_OF_BORROW_2 = LocalDateTime.of(2024, Month.JANUARY, 11, 18, 1, 2);
     public static final LocalDateTime DATE_OF_RETURN_1 = LocalDateTime.of(2024, Month.MARCH, 13, 12, 33, 59);
@@ -36,7 +38,7 @@ public class TestConstants {
     public static final String BOOK_CATEGORY_DESCRIPTION = "Book Category Description";
     public static final String USER_FIRST_NAME = "User First Name";
     public static final String USER_LAST_NAME = "User Last Name";
-    public static final String USER_EMAIL = "User Email";
+    public static final String USER_EMAIL = "user.email@example.com";
     public static final String USER_PASSWORD = "User Password";
     public static final List<BorrowDto> BORROW_DTO_LIST = new ArrayList<>() {{
         add(new BorrowDto(BORROW_ID_1, BOOK_ID_1, USER_ID, DATE_OF_BORROW_1, DATE_OF_RETURN_1, BorrowStatus.RETURNED));

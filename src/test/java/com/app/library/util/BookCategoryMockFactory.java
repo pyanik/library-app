@@ -1,11 +1,11 @@
-package com.app.library;
+package com.app.library.util;
 
 import com.app.library.model.dto.BookCategoryDto;
 import com.app.library.model.entity.BookCategoryEntity;
 
-import static com.app.library.TestConstants.*;
+import static com.app.library.constant.TestConstants.*;
 
-class BookCategoryMockFactory {
+public class BookCategoryMockFactory {
 
     public static BookCategoryDto getBookCategoryDto() {
         return new BookCategoryDto(BOOK_CATEGORY_ID, BOOK_CATEGORY_NAME, BOOK_CATEGORY_DESCRIPTION, BOOK_DTO_LIST);

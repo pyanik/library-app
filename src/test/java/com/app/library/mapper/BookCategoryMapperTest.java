@@ -1,4 +1,4 @@
-package com.app.library;
+package com.app.library.mapper;
 
 import com.app.library.model.dto.BookCategoryDto;
 import com.app.library.model.entity.BookCategoryEntity;
@@ -6,6 +6,7 @@ import com.app.library.model.entity.BookEntity;
 import com.app.library.model.mapper.BookCategoryMapper;
 import com.app.library.model.mapper.BookMapper;
 import com.app.library.model.mapper.BorrowMapper;
+import com.app.library.util.BookCategoryMockFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
