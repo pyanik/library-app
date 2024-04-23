@@ -1,12 +1,12 @@
-package com.app.library;
+package com.app.library.util;
 
 import com.app.library.model.dto.UserDto;
 import com.app.library.model.entity.UserEntity;
 import com.app.library.model.enums.UserRole;
 
-import static com.app.library.TestConstants.*;
+import static com.app.library.constant.TestConstants.*;
 
-class UserMockFactory {
+public class UserMockFactory {
 
     public static UserDto getReaderUserDto() {
         return new UserDto(USER_ID, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL, USER_PASSWORD, UserRole.READER, BORROW_DTO_LIST);
