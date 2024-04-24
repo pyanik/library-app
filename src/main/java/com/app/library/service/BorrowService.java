@@ -2,18 +2,20 @@ package com.app.library.service;
 
 import com.app.library.exception.BookAlreadyBorrowedException;
 import com.app.library.exception.BookNotFoundException;
+import com.app.library.exception.BorrowAlreadyReturnedException;
 import com.app.library.exception.BorrowNotFoundException;
+import com.app.library.listener.BorrowEntityListener;
 import com.app.library.model.dto.BookDto;
 import com.app.library.model.dto.BorrowDto;
 import com.app.library.model.entity.BorrowEntity;
 import com.app.library.model.enums.BorrowStatus;
 import com.app.library.model.mapper.BorrowMapper;
 import com.app.library.persistence.BorrowRepository;
+import jakarta.persistence.EntityListeners;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +23,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@EntityListeners(BorrowEntityListener.class)
 public class BorrowService {
 
     private final BorrowRepository borrowRepository;
@@ -47,17 +50,14 @@ public class BorrowService {
         return borrowDtos;
     }
 
-    public Optional<BorrowDto> replaceBorrow(UUID borrowId, BorrowDto borrowDto) {
+    @Transactional
+    public Optional<BorrowDto> returnBorrow(UUID borrowId) {
         if (!borrowRepository.existsById(borrowId)) {
             return Optional.empty();
         }
-        
-        BorrowEntity borrowToUpdate = borrowMapper.toEntity(borrowDto);
-        if (isAlreadyReturned(borrowToUpdate)) {
-            borrowToUpdate.setDateOfReturn(LocalDateTime.now());
-        }
-        BorrowEntity updatedBorrow = borrowRepository.save(borrowToUpdate);
-        return Optional.of(borrowMapper.toDto(updatedBorrow));
+
+        BorrowEntity returnStatusBorrow = setReturnStatus(borrowId);
+        return Optional.of(borrowMapper.toDto(returnStatusBorrow));
     }
 
     public void deleteBorrow(UUID borrowId) {
@@ -77,12 +77,16 @@ public class BorrowService {
                 .forEach(e -> setReturnStatus(e.getId()));
     }
 
-    private void setReturnStatus(UUID borrowId) {
-        BorrowEntity ReturnStatusBorrow = borrowRepository.findById(borrowId)
+    private BorrowEntity setReturnStatus(UUID borrowId) {
+        BorrowEntity returnStatusBorrow = borrowRepository.findById(borrowId)
                 .orElseThrow(() -> new BorrowNotFoundException(borrowId));
-        ReturnStatusBorrow.setDateOfReturn(LocalDateTime.now());
-        ReturnStatusBorrow.setBorrowStatus(BorrowStatus.RETURNED);
-        borrowRepository.save(ReturnStatusBorrow);
+
+        if (isAlreadyReturned(returnStatusBorrow)) {
+            throw new BorrowAlreadyReturnedException(borrowId);
+        }
+
+        returnStatusBorrow.setBorrowStatus(BorrowStatus.RETURNED);
+        return borrowRepository.save(returnStatusBorrow);
     }
 
     private BorrowDto saveBorrow(BorrowDto borrowDto) throws BookAlreadyBorrowedException {
@@ -92,7 +96,6 @@ public class BorrowService {
         }
 
         BorrowEntity borrowToSave = borrowMapper.toEntity(borrowDto);
-        borrowToSave.setDateOfBorrow(LocalDateTime.now());
         borrowToSave.setBorrowStatus(BorrowStatus.BORROWED);
         BorrowEntity savedBorrow = borrowRepository.save(borrowToSave);
         return borrowMapper.toDto(savedBorrow);

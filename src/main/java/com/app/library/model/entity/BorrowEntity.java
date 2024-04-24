@@ -1,5 +1,6 @@
 package com.app.library.model.entity;
 
+import com.app.library.listener.BorrowEntityListener;
 import com.app.library.model.enums.BorrowStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import static com.app.library.constant.ApplicationConstants.DB_SCHEMA;
 @Setter
 @Entity
 @Table(name = "borrow", schema = DB_SCHEMA)
+@EntityListeners(BorrowEntityListener.class)
 public class BorrowEntity {
 
     @Id

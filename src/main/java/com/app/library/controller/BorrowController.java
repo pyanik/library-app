@@ -44,8 +44,8 @@ public class BorrowController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<BorrowDto> replaceBorrow(@PathVariable UUID id, @Valid @RequestBody BorrowDto borrow) {
-        return borrowService.replaceBorrow(id, borrow)
+    ResponseEntity<BorrowDto> returnBorrowedBook(@PathVariable UUID id) {
+        return borrowService.returnBorrow(id)
                 .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
     }
