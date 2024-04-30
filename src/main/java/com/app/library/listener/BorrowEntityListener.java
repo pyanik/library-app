@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @AllArgsConstructor
 @Slf4j
@@ -25,11 +27,12 @@ public class BorrowEntityListener {
     @PreUpdate
     @PrePersist
     public void setBorrowStatus(BorrowEntity entity) {
-        log.info(String.format("new Borrow record has been saved in database: %s", entity.getId()));
+        LocalDateTime localDateTimeNow = localDateTimeWrapper.getLocalDateTimeNow();
         if (BorrowStatus.RETURNED.equals(entity.getBorrowStatus())) {
-            entity.setDateOfReturn(localDateTimeWrapper.getLocalDateTimeNow());
+            entity.setDateOfReturn(localDateTimeNow);
         } else if (BorrowStatus.BORROWED.equals(entity.getBorrowStatus())) {
-            entity.setDateOfBorrow(localDateTimeWrapper.getLocalDateTimeNow());
+            entity.setDateOfBorrow(localDateTimeNow);
         }
+        log.info(String.format("status of the borrow: %s has been updated", entity.getId()));
     }
 }
