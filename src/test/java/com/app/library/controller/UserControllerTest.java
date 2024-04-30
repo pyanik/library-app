@@ -41,11 +41,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class UserControllerTest {
 
-    private static final String API_USERS =  "/api/users";
-    private static final String API_USERS_BY_ID =  "/api/users/{id}";
+    private static final String API_USERS = "/api/users";
+    private static final String API_USERS_BY_ID = "/api/users/{id}";
 
     @LocalServerPort
     private int port;
@@ -71,7 +71,8 @@ class UserControllerTest {
                 .andReturn();
 
         //then
-        List<UserDto> users = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<UserDto> users = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(users.isEmpty());
     }
 

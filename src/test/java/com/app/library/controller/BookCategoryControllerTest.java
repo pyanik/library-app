@@ -38,11 +38,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class BookCategoryControllerTest {
 
-    private static final String API_BOOK_CATEGORIES =  "/api/categories";
-    private static final String API_BOOK_CATEGORIES_BY_ID =  "/api/categories/{id}";
+    private static final String API_BOOK_CATEGORIES = "/api/categories";
+    private static final String API_BOOK_CATEGORIES_BY_ID = "/api/categories/{id}";
 
     @LocalServerPort
     private int port;
@@ -65,7 +65,8 @@ class BookCategoryControllerTest {
                 .andReturn();
 
         //then
-        List<BookCategoryDto> categories = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<BookCategoryDto> categories = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(categories.isEmpty());
     }
 

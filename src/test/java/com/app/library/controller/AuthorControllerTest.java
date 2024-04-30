@@ -44,12 +44,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class AuthorControllerTest {
 
-    private static final String API_AUTHORS =  "/api/authors";
-    private static final String API_AUTHORS_BY_ID =  "/api/authors/{id}";
-    private static final String API_AUTHORS_SEARCH =  "/api/authors/search";
+    private static final String API_AUTHORS = "/api/authors";
+    private static final String API_AUTHORS_BY_ID = "/api/authors/{id}";
+    private static final String API_AUTHORS_SEARCH = "/api/authors/search";
 
     @LocalServerPort
     private int port;
@@ -73,7 +73,8 @@ class AuthorControllerTest {
                 .andReturn();
 
         //then
-        List<AuthorDto> authors = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<AuthorDto> authors = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(authors.isEmpty());
     }
 
@@ -139,7 +140,8 @@ class AuthorControllerTest {
                 .andReturn();
 
         //then
-        List<AuthorDto> authors = mapResponse(new TypeReference<>() {}, mvcResult);
-        assertEquals(2, authors.size());
+        List<AuthorDto> authors = mapResponse(new TypeReference<>() {
+        }, mvcResult);
+        assertEquals(1, authors.size());
     }
 }

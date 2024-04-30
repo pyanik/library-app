@@ -49,11 +49,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class BorrowControllerTest {
 
-    private static final String API_BORROWS =  "/api/borrows";
-    private static final String API_BORROWS_BY_ID =  "/api/borrows/{id}";
+    private static final String API_BORROWS = "/api/borrows";
+    private static final String API_BORROWS_BY_ID = "/api/borrows/{id}";
 
     @LocalServerPort
     private int port;
@@ -75,6 +75,7 @@ class BorrowControllerTest {
     void getAllBorrowsTest_returnBorrows_passed() {
         //given
         String url = TestControllerUtil.getUrl(API_BORROWS, port);
+
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                 .get(url))
@@ -82,7 +83,8 @@ class BorrowControllerTest {
                 .andReturn();
 
         //then
-        List<BorrowDto> borrows = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<BorrowDto> borrows = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(borrows.isEmpty());
     }
 
@@ -118,7 +120,8 @@ class BorrowControllerTest {
                 .andReturn();
 
         //then
-        List<BorrowDto> borrows = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<BorrowDto> borrows = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(borrows.isEmpty());
     }
 

@@ -1,5 +1,6 @@
 package com.app.library.util;
 
+import com.app.library.cache.BookCacheManager;
 import com.app.library.persistence.*;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -16,6 +17,8 @@ import static com.app.library.util.BookMockFactory.getSecondBook;
 import static com.app.library.util.BorrowMockFactory.getBorrow;
 import static com.app.library.util.BorrowMockFactory.getBorrows;
 import static com.app.library.util.UserMockFactory.getReaderUser;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @TestConfiguration
 public class TestMockConfiguration {
@@ -28,8 +31,7 @@ public class TestMockConfiguration {
         Mockito.when(authorRepository.findById(Mockito.any())).thenReturn(Optional.of(getAuthor()));
         Mockito.when(authorRepository.save(Mockito.any())).thenReturn(getAuthor());
         Mockito.when(authorRepository.existsById(Mockito.any())).thenReturn(true);
-        Mockito.when(authorRepository.findByFirstName(Mockito.any())).thenReturn(List.of(getAuthorWithNameAsFirstName()));
-        Mockito.when(authorRepository.findByLastName(Mockito.any())).thenReturn(List.of(getAuthorWithNameAsLastName()));
+        Mockito.when(authorRepository.findAllByFirstOrLastName(Mockito.any())).thenReturn(List.of(getAuthorWithNameAsFirstName()));
 
         return authorRepository;
     }
@@ -54,6 +56,7 @@ public class TestMockConfiguration {
         Mockito.when(bookRepository.findById(Mockito.any())).thenReturn(Optional.of(getSecondBook()));
         Mockito.when(bookRepository.save(Mockito.any())).thenReturn(getBook());
         Mockito.when(bookRepository.existsById(Mockito.any())).thenReturn(true);
+        Mockito.when(bookRepository.findAllByTitle(any())).thenReturn(List.of(getBook()));
 
         return bookRepository;
     }
