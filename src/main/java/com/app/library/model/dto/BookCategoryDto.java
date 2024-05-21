@@ -13,5 +13,13 @@ public record BookCategoryDto (
 
         String description,
 
-        List<BookDto> books
-) {}
+        List<BookDto> books,
+
+        int businessObjectVersion
+) implements CommonDto {
+
+        @Override
+        public int getBusinessObjectVersion() {
+                return businessObjectVersion;
+        }
+}

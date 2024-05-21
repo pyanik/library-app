@@ -32,4 +32,8 @@ public class AuthorEntity {
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<BookEntity> books = new ArrayList<>();
+
+    @Version
+    @Column(name = "business_object_version")
+    private int businessObjectVersion;
 }

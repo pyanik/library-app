@@ -41,4 +41,8 @@ public class BookEntity {
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private List<BorrowEntity> borrows = new ArrayList<>();
+
+    @Version
+    @Column(name = "business_object_version")
+    private int businessObjectVersion;
 }

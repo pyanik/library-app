@@ -16,5 +16,13 @@ public record AuthorDto (
 
         String biography,
 
-        List<BookDto> books
-) {}
+        List<BookDto> books,
+
+        int businessObjectVersion
+) implements CommonDto {
+
+        @Override
+        public int getBusinessObjectVersion() {
+                return businessObjectVersion;
+        }
+}

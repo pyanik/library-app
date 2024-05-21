@@ -9,7 +9,7 @@ import static com.app.library.constant.TestConstants.*;
 public class UserMockFactory {
 
     public static UserDto getReaderUserDto() {
-        return new UserDto(USER_ID, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL, USER_PASSWORD, UserRole.READER, BORROW_DTO_LIST);
+        return new UserDto(USER_ID, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL, USER_PASSWORD, UserRole.READER, BORROW_DTO_LIST, BUSINESS_VERSION);
     }
 
     public static UserEntity getReaderUser() {

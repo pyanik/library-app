@@ -41,4 +41,8 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<BorrowEntity> borrows = new ArrayList<>();
+
+    @Version
+    @Column(name = "business_object_version")
+    private int businessObjectVersion;
 }

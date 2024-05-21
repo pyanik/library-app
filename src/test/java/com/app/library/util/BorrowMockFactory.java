@@ -14,7 +14,7 @@ import static com.app.library.util.UserMockFactory.getReaderUser;
 public class BorrowMockFactory {
 
     public static BorrowDto getBorrowDto() {
-        return new BorrowDto(BORROW_ID_1, BOOK_ID_1, USER_ID, DATE_OF_BORROW_1, DATE_OF_RETURN_1, BorrowStatus.RETURNED);
+        return new BorrowDto(BORROW_ID_1, BOOK_ID_1, USER_ID, DATE_OF_BORROW_1, DATE_OF_RETURN_1, BorrowStatus.RETURNED, BUSINESS_VERSION);
     }
 
     public static BorrowEntity getBorrow() {

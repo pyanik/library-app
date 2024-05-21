@@ -40,4 +40,8 @@ public class BorrowEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "borrow_status", nullable = false)
     private BorrowStatus borrowStatus;
+
+    @Version
+    @Column(name = "business_object_version")
+    private int businessObjectVersion;
 }

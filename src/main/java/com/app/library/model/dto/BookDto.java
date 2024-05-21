@@ -16,5 +16,13 @@ public record BookDto (
 
         Year year,
 
-        List<BorrowDto> borrows
-) {}
+        List<BorrowDto> borrows,
+
+        int businessObjectVersion
+) implements CommonDto {
+
+        @Override
+        public int getBusinessObjectVersion() {
+                return businessObjectVersion;
+        }
+}

@@ -1,7 +1,6 @@
 package com.app.library.model.dto;
 
 import com.app.library.model.enums.BorrowStatus;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
@@ -20,5 +19,13 @@ public record BorrowDto (
 
         LocalDateTime dateOfReturn,
 
-        BorrowStatus borrowStatus
-) {}
+        BorrowStatus borrowStatus,
+
+        int businessObjectVersion
+) implements CommonDto {
+
+        @Override
+        public int getBusinessObjectVersion() {
+                return businessObjectVersion;
+        }
+}

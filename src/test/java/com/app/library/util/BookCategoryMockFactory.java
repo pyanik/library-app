@@ -8,7 +8,7 @@ import static com.app.library.constant.TestConstants.*;
 public class BookCategoryMockFactory {
 
     public static BookCategoryDto getBookCategoryDto() {
-        return new BookCategoryDto(BOOK_CATEGORY_ID, BOOK_CATEGORY_NAME, BOOK_CATEGORY_DESCRIPTION, BOOK_DTO_LIST);
+        return new BookCategoryDto(BOOK_CATEGORY_ID, BOOK_CATEGORY_NAME, BOOK_CATEGORY_DESCRIPTION, BOOK_DTO_LIST, BUSINESS_VERSION);
     }
 
     public static BookCategoryEntity getBookCategory() {

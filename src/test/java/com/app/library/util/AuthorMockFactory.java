@@ -8,7 +8,7 @@ import static com.app.library.constant.TestConstants.*;
 public class AuthorMockFactory {
 
     public static AuthorDto getAuthorDto() {
-        return new AuthorDto(AUTHOR_ID, AUTHOR_FIRST_NAME, AUTHOR_LAST_NAME, AUTHOR_BIOGRAPHY, BOOK_DTO_LIST);
+        return new AuthorDto(AUTHOR_ID, AUTHOR_FIRST_NAME, AUTHOR_LAST_NAME, AUTHOR_BIOGRAPHY, BOOK_DTO_LIST, BUSINESS_VERSION);
     }
 
     public static AuthorEntity getAuthor() {

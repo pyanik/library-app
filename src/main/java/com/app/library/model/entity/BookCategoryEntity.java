@@ -29,4 +29,8 @@ public class BookCategoryEntity {
 
     @OneToMany(mappedBy = "bookCategory", cascade = CascadeType.ALL)
     private List<BookEntity> books = new ArrayList<>();
+
+    @Version
+    @Column(name = "business_object_version")
+    private int businessObjectVersion;
 }

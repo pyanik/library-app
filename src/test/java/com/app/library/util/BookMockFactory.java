@@ -11,7 +11,7 @@ import static com.app.library.util.BorrowMockFactory.*;
 public class BookMockFactory {
 
     public static BookDto getBookDto() {
-        return new BookDto(BOOK_ID_2, BOOK_TITLE_2, BOOK_DESCRIPTION_2, BOOK_YEAR_2, BORROW_DTO_LIST);
+        return new BookDto(BOOK_ID_2, BOOK_TITLE_2, BOOK_DESCRIPTION_2, BOOK_YEAR_2, BORROW_DTO_LIST, BUSINESS_VERSION);
     }
 
     public static BookEntity getBook() {

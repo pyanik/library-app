@@ -1,8 +1,10 @@
 package com.app.library.controller;
 
+import com.app.library.aop.annotation.BusinessObjectVersionValidator;
 import com.app.library.model.dto.BookDto;
 import com.app.library.model.dto.BookSearchRequestDto;
 import com.app.library.service.BookService;
+import com.app.library.service.BusinessObjectVersionValidatorService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,6 +47,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @BusinessObjectVersionValidator(serviceClass = BusinessObjectVersionValidatorService.class, methodName = "validate", bodyObjectName = "book")
     ResponseEntity<BookDto> replaceBook(@PathVariable UUID id, @Valid @RequestBody BookDto book) {
         return bookService.replaceBook(id, book)
                 .map(d -> new ResponseEntity<>(d, HttpStatus.OK))
