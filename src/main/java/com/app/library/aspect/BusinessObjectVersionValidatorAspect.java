@@ -2,6 +2,7 @@ package com.app.library.aspect;
 
 import com.app.library.aop.annotation.BusinessObjectVersionValidator;
 import com.app.library.model.dto.BookDto;
+import com.app.library.model.dto.DomainDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
@@ -38,14 +39,14 @@ public class BusinessObjectVersionValidatorAspect {
 
 //        Integer joinPointArg = (Integer) joinPointArgs[bodyObjectNameIndex];
 
-        BookDto joinPointArg = (BookDto) joinPointArgs[bodyObjectNameIndex];
-        int businessObjectVersion = joinPointArg.businessObjectVersion();
+        DomainDto joinPointArg = (DomainDto) joinPointArgs[bodyObjectNameIndex];
+        int businessObjectVersion = joinPointArg.getBusinessObjectVersion();
 
         Object service = applicationContext.getBean(annotation.serviceClass());
         Class<?> serviceClass = service.getClass();
-        Method declaredMethod = serviceClass.getDeclaredMethod(annotation.methodName(), Integer.class);
+        Method declaredMethod = serviceClass.getDeclaredMethod(annotation.methodName(), DomainDto.class);
 
-        declaredMethod.invoke(service, businessObjectVersion);
+        declaredMethod.invoke(service, joinPointArg);
 //        declaredMethod.invoke(service, joinPointArg);
     }
 }

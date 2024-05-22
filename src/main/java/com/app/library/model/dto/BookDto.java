@@ -19,7 +19,7 @@ public record BookDto (
         List<BorrowDto> borrows,
 
         int businessObjectVersion
-) implements CommonDto {
+) implements DomainDto {
 
         @Override
         public int getBusinessObjectVersion() {

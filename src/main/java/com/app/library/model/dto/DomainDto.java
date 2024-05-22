@@ -1,5 +1,5 @@
 package com.app.library.model.dto;
 
-public interface CommonDto {
+public interface DomainDto {
     int getBusinessObjectVersion();
 }

@@ -22,7 +22,7 @@ public record BorrowDto (
         BorrowStatus borrowStatus,
 
         int businessObjectVersion
-) implements CommonDto {
+) implements DomainDto {
 
         @Override
         public int getBusinessObjectVersion() {

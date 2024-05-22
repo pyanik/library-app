@@ -16,7 +16,7 @@ public record BookCategoryDto (
         List<BookDto> books,
 
         int businessObjectVersion
-) implements CommonDto {
+) implements DomainDto {
 
         @Override
         public int getBusinessObjectVersion() {
