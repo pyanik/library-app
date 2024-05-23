@@ -12,4 +12,9 @@ public class ApplicationConstants {
         public static final String BOOKS_CACHE = "booksCache";
         public static final String AUTHORS_CACHE = "authorsCache";
     }
+
+    @UtilityClass
+    public class ProfileName {
+        public static final String TEST_PROFILE = "unit-test";
+    }
 }

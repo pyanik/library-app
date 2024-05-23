@@ -1,5 +1,6 @@
 package com.app.library.cache;
 
+import com.app.library.constant.ApplicationConstants;
 import com.app.library.constant.TestConstants;
 import com.app.library.persistence.AuthorRepository;
 import com.app.library.util.TestMockConfiguration;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -15,6 +17,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
+@ActiveProfiles(ApplicationConstants.ProfileName.TEST_PROFILE)
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class AuthorCacheManagerTest {
