@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.app.library.constant.ApplicationConstants.CacheNames.BOOKS_CACHE;
+import static com.app.library.constant.ApplicationConstants.CacheNames.BOOKS_CACHE_CLEARED_MESSAGE;
+
 @Component
 @AllArgsConstructor
 @Slf4j
@@ -18,13 +21,13 @@ public class BookCacheManager {
 
     private final BookRepository bookRepository;
 
-    @Cacheable(value = {ApplicationConstants.CacheNames.BOOKS_CACHE}, key = "#title")
+    @Cacheable(value = {BOOKS_CACHE}, key = "#title")
     public List<BookEntity> getBooksByTitle(String title) {
         return bookRepository.findAllByTitle(title);
     }
 
-    @CacheEvict(value = {ApplicationConstants.CacheNames.BOOKS_CACHE}, allEntries = true)
+    @CacheEvict(value = {BOOKS_CACHE}, allEntries = true)
     public void clearBookCache() {
-        log.info("Books cache has been cleared.");
+        log.info(BOOKS_CACHE_CLEARED_MESSAGE);
     }
 }

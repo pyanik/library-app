@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static com.app.library.constant.ApplicationConstants.ControllerMessages.BOOK_CATEGORY_HAS_BEEN_DELETED;
+
 @RestController
 @Validated
 @RequestMapping("/api/categories")
@@ -52,6 +54,6 @@ public class BookCategoryController {
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteBookCategory(@PathVariable UUID id) {
         bookCategoryService.deleteBookCategory(id);
-        return new ResponseEntity<>("Book Category has been deleted.", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(BOOK_CATEGORY_HAS_BEEN_DELETED, HttpStatus.NO_CONTENT);
     }
 }

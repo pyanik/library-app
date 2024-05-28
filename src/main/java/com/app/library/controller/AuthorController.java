@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static com.app.library.constant.ApplicationConstants.ControllerMessages.AUTHOR_HAS_BEEN_DELETED;
+
 @RestController
 @Validated
 @RequestMapping("/api/authors")
@@ -52,7 +54,7 @@ public class AuthorController {
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteAuthor(@PathVariable UUID id) {
         authorService.deleteAuthor(id);
-        return new ResponseEntity<>("Author has been deleted.", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(AUTHOR_HAS_BEEN_DELETED, HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/search")

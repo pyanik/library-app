@@ -7,7 +7,6 @@ import com.app.library.model.entity.BookEntity;
 import com.app.library.model.mapper.BookMapper;
 import com.app.library.persistence.BookRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
@@ -50,7 +49,6 @@ public class BookService {
         return Optional.of(bookMapper.toDto(updatedBook));
     }
 
-    @Async
     public void deleteBook(UUID bookId) {
         bookRepository.deleteById(bookId);
     }

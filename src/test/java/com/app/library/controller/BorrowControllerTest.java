@@ -2,7 +2,6 @@ package com.app.library.controller;
 
 import com.app.library.constant.ApplicationConstants;
 import com.app.library.exception.BookAlreadyBorrowedException;
-import com.app.library.exception.EmailAlreadyExistsException;
 import com.app.library.model.dto.BorrowDto;
 import com.app.library.persistence.BookRepository;
 import com.app.library.service.BorrowService;
@@ -13,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -32,20 +30,20 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 import java.util.Optional;
 
+import static com.app.library.constant.ApplicationConstants.ExceptionMessages.IS_ALREADY_BORROWED;
+import static com.app.library.constant.ApplicationConstants.ProfileNames.TEST_PROFILE;
 import static com.app.library.constant.TestConstants.BORROW_ID_1;
 import static com.app.library.util.BookMockFactory.getBorrowedBook;
 import static com.app.library.util.BorrowMockFactory.getBorrowDto;
 import static com.app.library.util.TestControllerUtil.getContent;
 import static com.app.library.util.TestControllerUtil.mapResponse;
-import static com.app.library.util.UserMockFactory.getReaderUserDto;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mockStatic;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles(ApplicationConstants.ProfileName.TEST_PROFILE)
+@ActiveProfiles(TEST_PROFILE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
@@ -150,6 +148,6 @@ class BorrowControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(getContent(List.of(getBorrowDto()))))
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof BookAlreadyBorrowedException))
-                .andExpect(result -> assertEquals("The book is already borrowed.", result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals(IS_ALREADY_BORROWED, result.getResolvedException().getMessage()));
     }
 }

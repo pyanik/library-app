@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.app.library.constant.ApplicationConstants.CacheNames.AUTHORS_CACHE;
+import static com.app.library.constant.ApplicationConstants.CacheNames.AUTHORS_CACHE_CLEARED_MESSAGE;
+
 @Component
 @AllArgsConstructor
 @Slf4j
@@ -19,13 +22,13 @@ public class AuthorCacheManager {
 
     private final AuthorRepository authorRepository;
 
-    @Cacheable(value = {ApplicationConstants.CacheNames.AUTHORS_CACHE}, key = "#name")
+    @Cacheable(value = {AUTHORS_CACHE}, key = "#name")
     public List<AuthorEntity> getAuthorsByName(String name) {
         return authorRepository.findAllByFirstOrLastName(name);
     }
 
-    @CacheEvict(value = {ApplicationConstants.CacheNames.AUTHORS_CACHE}, allEntries = true)
+    @CacheEvict(value = {AUTHORS_CACHE}, allEntries = true)
     public void clearAuthorCache() {
-        log.info("Authors cache has been cleared.");
+        log.info(AUTHORS_CACHE_CLEARED_MESSAGE);
     }
 }

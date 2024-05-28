@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static com.app.library.constant.ApplicationConstants.ControllerMessages.USERS_HAVE_BEEN_DELETED;
+import static com.app.library.constant.ApplicationConstants.ControllerMessages.USER_HAS_BEEN_DELETED;
+
 @RestController
 @Validated
 @RequestMapping("/api/users")
@@ -53,12 +56,12 @@ public class UserController {
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);
-        return new ResponseEntity<>("User has been deleted.", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(USER_HAS_BEEN_DELETED, HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping(consumes = "application/json")
     ResponseEntity<String> deleteUsers(@RequestBody List<UUID> ids) {
         userService.deleteUsers(ids);
-        return new ResponseEntity<>("Users have been deleted.", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(USERS_HAVE_BEEN_DELETED, HttpStatus.NO_CONTENT);
     }
 }

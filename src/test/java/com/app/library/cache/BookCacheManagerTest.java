@@ -12,12 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
+import static com.app.library.constant.ApplicationConstants.ProfileNames.TEST_PROFILE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
-@ActiveProfiles(ApplicationConstants.ProfileName.TEST_PROFILE)
+@ActiveProfiles(TEST_PROFILE)
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class BookCacheManagerTest {
