@@ -1,11 +1,12 @@
 package com.app.library.aspect;
 
 import com.app.library.aop.annotation.BusinessObjectVersionValidator;
-import com.app.library.model.dto.BookDto;
-import com.app.library.model.dto.DomainDto;
+import com.app.library.exception.BusinessObjectVersionNotValidException;
+import com.app.library.model.dto.BusinessObjectVersionDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -37,16 +38,16 @@ public class BusinessObjectVersionValidatorAspect {
 
         Object[] joinPointArgs = joinPoint.getArgs();
 
-//        Integer joinPointArg = (Integer) joinPointArgs[bodyObjectNameIndex];
-
-        DomainDto joinPointArg = (DomainDto) joinPointArgs[bodyObjectNameIndex];
-        int businessObjectVersion = joinPointArg.getBusinessObjectVersion();
+        BusinessObjectVersionDto joinPointArg = (BusinessObjectVersionDto) joinPointArgs[bodyObjectNameIndex];
 
         Object service = applicationContext.getBean(annotation.serviceClass());
         Class<?> serviceClass = service.getClass();
-        Method declaredMethod = serviceClass.getDeclaredMethod(annotation.methodName(), DomainDto.class);
+        Method declaredMethod = serviceClass.getDeclaredMethod(annotation.methodName(), BusinessObjectVersionDto.class);
 
-        declaredMethod.invoke(service, joinPointArg);
-//        declaredMethod.invoke(service, joinPointArg);
+        String result = (String) declaredMethod.invoke(service, joinPointArg);
+
+        if (StringUtils.isNotEmpty(result)) {
+            throw new BusinessObjectVersionNotValidException(result);
+        }
     }
 }

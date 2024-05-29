@@ -22,10 +22,4 @@ public record BorrowDto (
         BorrowStatus borrowStatus,
 
         int businessObjectVersion
-) implements DomainDto {
-
-        @Override
-        public int getBusinessObjectVersion() {
-                return businessObjectVersion;
-        }
-}
+) implements BusinessObjectVersionDto {}

@@ -19,10 +19,4 @@ public record AuthorDto (
         List<BookDto> books,
 
         int businessObjectVersion
-) implements DomainDto {
-
-        @Override
-        public int getBusinessObjectVersion() {
-                return businessObjectVersion;
-        }
-}
+) implements BusinessObjectVersionDto {}
