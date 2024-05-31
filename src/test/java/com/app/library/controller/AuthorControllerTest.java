@@ -1,5 +1,6 @@
 package com.app.library.controller;
 
+import com.app.library.constant.ApplicationConstants;
 import com.app.library.model.dto.AuthorDto;
 import com.app.library.util.TestControllerUtil;
 import com.app.library.util.TestMockConfiguration;
@@ -8,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -21,15 +21,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.util.LinkedMultiValueMap;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
+import static com.app.library.constant.ApplicationConstants.ProfileNames.TEST_PROFILE;
 import static com.app.library.constant.TestConstants.AUTHOR_ID;
 import static com.app.library.constant.TestConstants.AUTHOR_NAME;
 import static com.app.library.util.AuthorMockFactory.getAuthorDto;
@@ -39,17 +35,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("unit-test")
+@ActiveProfiles(TEST_PROFILE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class AuthorControllerTest {
 
-    private static final String API_AUTHORS =  "/api/authors";
-    private static final String API_AUTHORS_BY_ID =  "/api/authors/{id}";
-    private static final String API_AUTHORS_SEARCH =  "/api/authors/search";
+    private static final String API_AUTHORS = "/api/authors";
+    private static final String API_AUTHORS_BY_ID = "/api/authors/{id}";
+    private static final String API_AUTHORS_SEARCH = "/api/authors/search";
 
     @LocalServerPort
     private int port;
@@ -73,7 +69,8 @@ class AuthorControllerTest {
                 .andReturn();
 
         //then
-        List<AuthorDto> authors = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<AuthorDto> authors = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(authors.isEmpty());
     }
 
@@ -139,7 +136,8 @@ class AuthorControllerTest {
                 .andReturn();
 
         //then
-        List<AuthorDto> authors = mapResponse(new TypeReference<>() {}, mvcResult);
-        assertEquals(2, authors.size());
+        List<AuthorDto> authors = mapResponse(new TypeReference<>() {
+        }, mvcResult);
+        assertEquals(1, authors.size());
     }
 }

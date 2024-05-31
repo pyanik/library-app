@@ -1,5 +1,6 @@
 package com.app.library.controller;
 
+import com.app.library.constant.ApplicationConstants;
 import com.app.library.exception.EmailAlreadyExistsException;
 import com.app.library.model.dto.UserDto;
 import com.app.library.persistence.UserRepository;
@@ -27,6 +28,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static com.app.library.constant.ApplicationConstants.ProfileNames.TEST_PROFILE;
 import static com.app.library.constant.TestConstants.USER_ID;
 import static com.app.library.util.TestControllerUtil.getContent;
 import static com.app.library.util.TestControllerUtil.mapResponse;
@@ -36,16 +38,16 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("unit-test")
+@ActiveProfiles(TEST_PROFILE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class UserControllerTest {
 
-    private static final String API_USERS =  "/api/users";
-    private static final String API_USERS_BY_ID =  "/api/users/{id}";
+    private static final String API_USERS = "/api/users";
+    private static final String API_USERS_BY_ID = "/api/users/{id}";
 
     @LocalServerPort
     private int port;
@@ -71,7 +73,8 @@ class UserControllerTest {
                 .andReturn();
 
         //then
-        List<UserDto> users = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<UserDto> users = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(users.isEmpty());
     }
 

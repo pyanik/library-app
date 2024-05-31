@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static com.app.library.constant.ApplicationConstants.ControllerMessages.BOOK_BORROW_HAS_BEEN_DELETED;
+
 @RestController
 @Validated
 @RequestMapping("/api/borrows")
@@ -53,7 +55,7 @@ public class BorrowController {
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteBorrow(@PathVariable UUID id) {
         borrowService.deleteBorrow(id);
-        return new ResponseEntity<>("Book Borrow has been deleted.", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(BOOK_BORROW_HAS_BEEN_DELETED, HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/search")

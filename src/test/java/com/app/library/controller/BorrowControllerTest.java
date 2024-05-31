@@ -1,7 +1,7 @@
 package com.app.library.controller;
 
+import com.app.library.constant.ApplicationConstants;
 import com.app.library.exception.BookAlreadyBorrowedException;
-import com.app.library.exception.EmailAlreadyExistsException;
 import com.app.library.model.dto.BorrowDto;
 import com.app.library.persistence.BookRepository;
 import com.app.library.service.BorrowService;
@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -31,29 +30,29 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 import java.util.Optional;
 
+import static com.app.library.constant.ApplicationConstants.ExceptionMessages.IS_ALREADY_BORROWED;
+import static com.app.library.constant.ApplicationConstants.ProfileNames.TEST_PROFILE;
 import static com.app.library.constant.TestConstants.BORROW_ID_1;
 import static com.app.library.util.BookMockFactory.getBorrowedBook;
 import static com.app.library.util.BorrowMockFactory.getBorrowDto;
 import static com.app.library.util.TestControllerUtil.getContent;
 import static com.app.library.util.TestControllerUtil.mapResponse;
-import static com.app.library.util.UserMockFactory.getReaderUserDto;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mockStatic;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("unit-test")
+@ActiveProfiles(TEST_PROFILE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class BorrowControllerTest {
 
-    private static final String API_BORROWS =  "/api/borrows";
-    private static final String API_BORROWS_BY_ID =  "/api/borrows/{id}";
+    private static final String API_BORROWS = "/api/borrows";
+    private static final String API_BORROWS_BY_ID = "/api/borrows/{id}";
 
     @LocalServerPort
     private int port;
@@ -75,6 +74,7 @@ class BorrowControllerTest {
     void getAllBorrowsTest_returnBorrows_passed() {
         //given
         String url = TestControllerUtil.getUrl(API_BORROWS, port);
+
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                 .get(url))
@@ -82,7 +82,8 @@ class BorrowControllerTest {
                 .andReturn();
 
         //then
-        List<BorrowDto> borrows = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<BorrowDto> borrows = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(borrows.isEmpty());
     }
 
@@ -118,7 +119,8 @@ class BorrowControllerTest {
                 .andReturn();
 
         //then
-        List<BorrowDto> borrows = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<BorrowDto> borrows = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(borrows.isEmpty());
     }
 
@@ -146,6 +148,6 @@ class BorrowControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(getContent(List.of(getBorrowDto()))))
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof BookAlreadyBorrowedException))
-                .andExpect(result -> assertEquals("The book is already borrowed.", result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals(IS_ALREADY_BORROWED, result.getResolvedException().getMessage()));
     }
 }

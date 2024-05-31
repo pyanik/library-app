@@ -1,5 +1,6 @@
 package com.app.library.service;
 
+import com.app.library.cache.BookCacheManager;
 import com.app.library.model.dto.BookDto;
 import com.app.library.model.dto.BookSearchRequestDto;
 import com.app.library.model.entity.BookEntity;
@@ -19,6 +20,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookCacheManager bookCacheManager;
 
     public List<BookDto> getAllBooks() {
         return bookRepository.findAll().stream()
@@ -34,6 +36,7 @@ public class BookService {
     public BookDto saveBook(BookDto bookDto) {
         BookEntity bookToSave = bookMapper.toEntity(bookDto);
         BookEntity savedBook = bookRepository.save(bookToSave);
+        bookCacheManager.clearBookCache();
         return bookMapper.toDto(savedBook);
     }
 
@@ -51,7 +54,7 @@ public class BookService {
     }
 
     public List<BookDto> getBooksByTitle(String title) {
-        return bookRepository.findAllByTitle(title).stream()
+        return bookCacheManager.getBooksByTitle(title).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }

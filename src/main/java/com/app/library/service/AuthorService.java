@@ -1,5 +1,7 @@
 package com.app.library.service;
 
+import com.app.library.cache.AuthorCacheManager;
+import com.app.library.cache.BookCacheManager;
 import com.app.library.model.dto.AuthorDto;
 import com.app.library.model.entity.AuthorEntity;
 import com.app.library.model.mapper.AuthorMapper;
@@ -19,6 +21,7 @@ public class AuthorService {
 
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper;
+    private final AuthorCacheManager authorCacheManager;
 
     public List<AuthorDto> getAllAuthors() {
         return authorRepository.findAll().stream()
@@ -34,6 +37,7 @@ public class AuthorService {
     public AuthorDto saveAuthor(AuthorDto authorDto) {
         AuthorEntity authorToSave = authorMapper.toEntity(authorDto);
         AuthorEntity savedAuthor = authorRepository.save(authorToSave);
+        authorCacheManager.clearAuthorCache();
         return authorMapper.toDto(savedAuthor);
 
     }
@@ -52,12 +56,7 @@ public class AuthorService {
     }
 
     public List<AuthorDto> getAuthorByName(String name) {
-        List<AuthorEntity> authorsByFirstName = authorRepository.findByFirstName(name);
-        List<AuthorEntity> authorsByLastName = authorRepository.findByLastName(name);
-        List<AuthorEntity> authorEntities = Stream.concat(authorsByFirstName.stream(), authorsByLastName.stream())
-                .toList();
-
-        return authorEntities.stream()
+        return authorCacheManager.getAuthorsByName(name).stream()
                 .map(authorMapper::toDto)
                 .collect(Collectors.toList());
     }

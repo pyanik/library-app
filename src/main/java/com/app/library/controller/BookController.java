@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.app.library.constant.ApplicationConstants.ControllerMessages.BOOK_HAS_BEEN_DELETED;
+
 @RestController
 @Validated
 @RequestMapping("/api/books")
@@ -54,7 +56,7 @@ public class BookController {
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteBook(@PathVariable UUID id) {
         bookService.deleteBook(id);
-        return new ResponseEntity<>("Book has been deleted.", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(BOOK_HAS_BEEN_DELETED, HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/search")

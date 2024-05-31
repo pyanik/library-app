@@ -1,5 +1,6 @@
 package com.app.library.controller;
 
+import com.app.library.constant.ApplicationConstants;
 import com.app.library.model.dto.BookCategoryDto;
 import com.app.library.util.TestControllerUtil;
 import com.app.library.util.TestMockConfiguration;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static com.app.library.constant.ApplicationConstants.ProfileNames.TEST_PROFILE;
 import static com.app.library.constant.TestConstants.BOOK_CATEGORY_ID;
 import static com.app.library.util.BookCategoryMockFactory.getBookCategoryDto;
 import static com.app.library.util.TestControllerUtil.getContent;
@@ -33,16 +35,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("unit-test")
+@ActiveProfiles(TEST_PROFILE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class BookCategoryControllerTest {
 
-    private static final String API_BOOK_CATEGORIES =  "/api/categories";
-    private static final String API_BOOK_CATEGORIES_BY_ID =  "/api/categories/{id}";
+    private static final String API_BOOK_CATEGORIES = "/api/categories";
+    private static final String API_BOOK_CATEGORIES_BY_ID = "/api/categories/{id}";
 
     @LocalServerPort
     private int port;
@@ -65,7 +67,8 @@ class BookCategoryControllerTest {
                 .andReturn();
 
         //then
-        List<BookCategoryDto> categories = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<BookCategoryDto> categories = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(categories.isEmpty());
     }
 

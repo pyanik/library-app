@@ -1,5 +1,6 @@
 package com.app.library.controller;
 
+import com.app.library.constant.ApplicationConstants;
 import com.app.library.model.dto.BookDto;
 import com.app.library.util.TestControllerUtil;
 import com.app.library.util.TestMockConfiguration;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static com.app.library.constant.ApplicationConstants.ProfileNames.TEST_PROFILE;
 import static com.app.library.constant.TestConstants.BOOK_ID_2;
 import static com.app.library.util.BookMockFactory.getBookDto;
 import static com.app.library.util.TestControllerUtil.getContent;
@@ -33,16 +35,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("unit-test")
+@ActiveProfiles(TEST_PROFILE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {TestMockConfiguration.class})
 @ExtendWith(SpringExtension.class)
-@EnableAutoConfiguration(exclude= DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class BookControllerTest {
 
-    private static final String API_BOOKS =  "/api/books";
-    private static final String API_BOOKS_BY_ID =  "/api/books/{id}";
+    private static final String API_BOOKS = "/api/books";
+    private static final String API_BOOKS_BY_ID = "/api/books/{id}";
 
     @LocalServerPort
     private int port;
@@ -65,7 +67,8 @@ class BookControllerTest {
                 .andReturn();
 
         //then
-        List<BookDto> book = mapResponse(new TypeReference<>() {}, mvcResult);
+        List<BookDto> book = mapResponse(new TypeReference<>() {
+        }, mvcResult);
         assertFalse(book.isEmpty());
     }
 
